@@ -125,12 +125,15 @@ router.get('/shop', function(req, res) {
   const knex = require('knex')(options);
   knex('product').count('*')
   .then((rows) => {
-    
-    pageInfo = converPagination(prepage,rows[0].count,queryPage);
-    return knex('product').select("product_id","product_name","img_path","price")
-    .orderBy('product_id')
-    .limit(pageInfo.limitPage)
-    .offset(pageInfo.minItem)    
+    if (rows[0].count == 0){
+      res.render('shop', { product:{},page:{},paginationUrl:'/shop'});
+    }else{
+      pageInfo = converPagination(prepage,rows[0].count,queryPage);
+      return knex('product').select("product_id","product_name","img_path","price")
+      .orderBy('product_id')
+      .limit(pageInfo.limitPage)
+      .offset(pageInfo.minItem)    
+    }
   })
   .then((rows) => {
     res.render('shop', { product:rows,page:pageInfo,paginationUrl:'/shop'});

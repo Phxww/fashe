@@ -14,15 +14,23 @@ router.get('/productAdmin', function(req, res) {
   const knex = require('knex')(options);
 
   knex('product').count('*')
-  .then((rows) => { 
-    pageInfo = converPagination(prepage,rows[0].count,queryPage);
-    return knex('product').select("product_id","product_name","img_path","price","xl_cnt","l_cnt","m_cnt","s_cnt")
-    .orderBy('product_id')
-    .limit(pageInfo.limitPage)
-    .offset(pageInfo.minItem)    
+  .then((rows) => {
+    if (rows[0].count == 0){
+      return 0;
+    }else{
+      pageInfo = converPagination(prepage,rows[0].count,queryPage);
+      return knex('product').select("product_id","product_name","img_path","price","xl_cnt","l_cnt","m_cnt","s_cnt")
+      .orderBy('product_id')
+      .limit(pageInfo.limitPage)
+      .offset(pageInfo.minItem)    
+    }
   })
   .then((rows) => {
-    res.render('dashboard/productAdmin', { product:rows,page:pageInfo,message:req.flash('message'),paginationUrl:'/dashboard/productAdmin'});
+    if(rows == 0){
+      res.render('dashboard/productAdmin', { product:{},page:{},message:req.flash('message'),paginationUrl:'/dashboard/productAdmin'});
+    }else{
+      res.render('dashboard/productAdmin', { product:rows,page:pageInfo,message:req.flash('message'),paginationUrl:'/dashboard/productAdmin'});
+    }
   })
   .catch((err) => { 
       console.log('/productAdmin : in_error');
@@ -37,7 +45,7 @@ router.get('/product/edit/:p_id', function(req, res){
   let product;
   let categories;
   const knex = require('knex')(options);  
-    knex.from('product').select("product_id","product_description","product_name","categories_id","img_path","price","xl_cnt","l_cnt","m_cnt","s_cnt").where('product_id', '=', p_id)
+    knex.from('product').select("product_id","product_description","product_name","categories_id","img_path","img_path2","img_path3","img_path","price","xl_cnt","l_cnt","m_cnt","s_cnt").where('product_id', '=', p_id)
     .then(function(rows){
       product = rows[0];
         return knex.from('categories').select("categories_id","categories_name");    
@@ -132,6 +140,9 @@ router.post('/product/create', function(req, res ) {
   let mCount= parseInt(req.body.mCount);
   let sCount= parseInt(req.body.sCount);
   let imgPath= req.body.imgPath;
+  let imgPath2= req.body.imgPath2;
+  let imgPath3= req.body.imgPath3;
+
 
   const knex = require('knex')(options);
   const productInfo = [
@@ -143,7 +154,9 @@ router.post('/product/create', function(req, res ) {
       l_cnt:lCount,
       m_cnt:mCount,
       s_cnt:sCount,
-      img_path:imgPath
+      img_path:imgPath,
+      img_path2:imgPath2,
+      img_path3:imgPath3
       }
   ];
 

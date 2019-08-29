@@ -123,7 +123,7 @@ if(product === undefined){
 
         <div class="form-group mb-3">
            
-          <label for="imgPath">選擇圖檔*</label>
+          <label for="imgPath">選擇圖檔1*</label>
           <% if(product.img_path  ){ %>
             <img class="img-thumbnail d-block" src="<%- product.img_path%>" alt="" style="width: 150px">
           <% } %>
@@ -133,6 +133,22 @@ if(product === undefined){
               >選擇圖檔...</label>
           </div> -->
           <input type="text" class="form-control" id="imgPath" name="imgPath" placeholder="imgPath..." value="<%- product.img_path %>" required />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="imgPath2">選擇圖檔2*</label>
+          <% if(product.img_path2  ){ %>
+            <img class="img-thumbnail d-block" src="<%- product.img_path2%>" alt="" style="width: 150px">
+          <% } %>
+          <input type="text" class="form-control" id="imgPath2" name="imgPath2" placeholder="imgPath..." value="<%- product.img_path2 %>" required />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="imgPath3">選擇圖檔3*</label>
+          <% if(product.img_path3  ){ %>
+            <img class="img-thumbnail d-block" src="<%- product.img_path3%>" alt="" style="width: 150px">
+          <% } %>
+          <input type="text" class="form-control" id="imgPath3" name="imgPath3" placeholder="imgPath..." value="<%- product.img_path3 %>" required />
         </div>
 
         <button type="submit" class="btn btn-primary my-3 col-12">
