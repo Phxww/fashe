@@ -1,0 +1,299 @@
+<% extend('./layouts/layout') %>
+<!-- breadcrumb -->
+    <nav aria-label="breadcrumb " >
+        <div class="container-fluid">
+            <ol class="breadcrumb " style="background-color:transparent;">
+                <li class="breadcrumb-item"><a href="#" class="text-dark small">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-dark small">Women</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-dark small">T-Shirt</a></li>
+                <li class="breadcrumb-item active " aria-current="page"><small> Boxy T-Shirt with Roll Sleeve Detail</small></li>
+            </ol>
+        </div>
+    </nav>
+
+    <section class="my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 ">
+                    <div class="row">
+                        <div class="col-2 d-flex flex-column">
+                            <div class="mb-3">
+                                <img  id="smallImg1" src="<%- product['img_path'] %>" class="bg-cover img-fluid" alt="">
+                            </div>
+                            <div class="my-3">
+                                <img id="smallImg2" src="<%- product['img_path2'] %>" class="bg-cover img-fluid" alt="">
+                            </div>
+                            <div class="my-3">
+                                <img id="smallImg3" src="<%- product['img_path3'] %>" class="bg-cover img-fluid" alt="">
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <img id="showImg" src="<%- product['img_path'] %>" class="bg-cover img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <p class="h3"><%- product['product_name'] %></p>
+                    <p class="h3 text-muted">$<%- product['price'] %></p>
+                    <p class="small text-secondary"><%- product['product_description'] %></p>
+                    <div class="d-flex form-row my-3">
+                            <div class="col-3 text-center my-2"><p class=" text-secondary mb-0 my-2">Size</p></div>
+                            <div class="col-9 my-2">
+                                <select class="custom-select" id="sizeSelect">
+                                    <option selected disabled>Choose...</option>
+                                    <option value="s">S</option>
+                                    <option value="m">M</option>
+                                    <option value="l">L</option>
+                                    <option value="xl">XL</option>
+                                </select>
+                            </div>
+                    </div>
+                    <div class="d-flex form-row my-3">
+                            
+                            <div class="col-5"> 
+                                <nav aria-label="...">
+                                    <ul class="pagination ">
+                                        <li class="page-item ">
+                                        <button class="page-link bg-light"  id="decreaseBtn">-</a>
+                                        </li>
+                                        <li class="page-item bg-white"><input class="h-100 text-center" type="text" style="width:30px;" id="numOfClothes" value="1"></li>
+                                        <li class="page-item " ><button class="page-link bg-light" style="background-color: gray ;" id="increaseBtn">+</button></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="col-5"> 
+                                <button class="btn bg-dark text-light  btn-rounded " data-toggle="modal" data-target="#exampleModalCenter" 
+                                data-id="<%-product['product_id'] %>" 
+                                data-imgpath ="<%- product['img_path'] %>" 
+                                data-name="<%- product['product_name']%>" 
+                                data-price="<%- product['price']%>"
+                                id="cartBtn" >ADD TO CART</button>
+                            </div>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle"> 購物車訊息：</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        已成功加入購物車！
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+
+
+                    </div>
+                    <div class="d-flex form-row my-5">
+                        <div class="col-3 text-center">
+                            <p class="small text-secondary mb-0 my-2">SKU: MUG-01</p>
+                        </div> 
+                        <div class="col-9"><p class="small text-secondary mb-0 my-2">Categories: Mug, Design</p></div>
+                    </div>
+
+                    <div id="accordion">
+                        <div class="card  border-0">
+                            <div class="card-header bg-white  border-top " id="headingOne">
+                                <h5 class="mb-0 ">
+                                    <button class="btn btn-link text-dark pl-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Description
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse border-0" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body small  text-secondary">
+                                    Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris placerat 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card  border-0">
+                            <div class="card-header bg-white  border-top " id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link text-dark pl-0" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                                    Additional information
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body small text-secondary">
+                                    Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris placerat 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card  border-0">
+                            <div class="card-header bg-white  border-top " id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link text-dark pl-0" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+                                    Reviews (0)
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse " aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body small text-secondary">
+                                    Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris placerat 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <section class="my-5 ">
+        <div class="container">
+            <h3 class="text-center mt-5 my-5"><strong>RELATED PRODUCTS</strong></h3>
+
+             <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner px-5">
+                    <div class="carousel-item active bg-white">
+                        <div class="w-100 d-flex justify-content-between">
+                            <div class="card border-0" style="width: 15rem;">
+                                <img class="card-img-top" src="../images/item-02.jpg" alt="Card image cap">
+                                <div class="card-footer bg-white ">
+                                    <p class="card-text">Herschel supply co 25l</p>
+                                    <p class="card-text">$75.0</p>
+                                </div>
+                            </div>
+                            <div class="card border-0" style="width: 15rem;">
+                                <img class="card-img-top" src="../images/item-02.jpg" alt="Card image cap">
+                                <div class="card-footer bg-white ">
+                                    <p class="card-text">Herschel supply co 25l</p>
+                                    <p class="card-text">$75.0</p>
+                                </div>
+                            </div>
+                            <div class="card border-0" style="width: 15rem;">
+                                <img class="card-img-top" src="../images/item-02.jpg" alt="Card image cap">
+                                <div class="card-footer bg-white">
+                                    <p class="card-text">Herschel supply co 25l</p>
+                                    <p class="card-text">$75.0</p>
+                                </div>
+                            </div>
+                            <div class="card border-0" style="width: 15rem;">
+                                <img class="card-img-top" src="../images/item-02.jpg" alt="Card image cap">
+                                <div class="card-footer bg-white">
+                                    <p class="card-text">Herschel supply co 25l</p>
+                                    <p class="card-text">$75.0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-item">
+                        <div class="w-100 d-flex justify-content-between">
+                            <div class="card border-0" style="width: 15rem;">
+                                <img class="card-img-top" src="../images/item-02.jpg" alt="Card image cap">
+                                <div class="card-footer bg-white ">
+                                    <p class="card-text">Herschel supply co 25l</p>
+                                    <p class="card-text">$75.0</p>
+                                </div>
+                            </div>
+                            <div class="card border-0" style="width: 15rem;">
+                                <img class="card-img-top" src="../images/item-02.jpg" alt="Card image cap">
+                                <div class="card-footer bg-white ">
+                                    <p class="card-text">Herschel supply co 25l</p>
+                                    <p class="card-text">$75.0</p>
+                                </div>
+                            </div>
+                            <div class="card border-0" style="width: 15rem;">
+                                <img class="card-img-top" src="../images/item-02.jpg" alt="Card image cap">
+                                <div class="card-footer bg-white">
+                                    <p class="card-text">Herschel supply co 25l</p>
+                                    <p class="card-text">$75.0</p>
+                                </div>
+                            </div>
+                            <div class="card border-0" style="width: 15rem;">
+                                <img class="card-img-top" src="../images/item-02.jpg" alt="Card image cap">
+                                <div class="card-footer bg-white">
+                                    <p class="card-text">Herschel supply co 25l</p>
+                                    <p class="card-text">$75.0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div >
+                    <a class="carousel-control-prev  text-dark display-4" style=" width:2rem"  href="#carouselExampleControls2" role="button" data-slide="prev">
+                        <i class="fa  fa-angle-left " aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div >
+                <a class="carousel-control-next  text-dark display-4 " style=" width:2rem" href="#carouselExampleControls2" role="button" data-slide="next">
+                    <i class="fa  fa-angle-right " aria-hidden="true"></i>
+                </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $( document ).ready(function() {
+            $( "#smallImg1" ).click(function() {
+                $( "#showImg" ).attr('src',"<%- product['img_path'] %>");
+                $( "#smallImg1" ).css('border','2px solid black');
+                $( "#smallImg2" ).css('border','');
+                $( "#smallImg3" ).css('border','');
+            } );
+            $( "#smallImg2" ).click(function() {
+                $( "#showImg" ).attr('src',"<%- product['img_path2'] %>");
+                $( "#smallImg1" ).css('border','');
+                $( "#smallImg2" ).css('border','2px solid black');
+                $( "#smallImg3" ).css('border','');
+            } );
+            $( "#smallImg3" ).click(function() {
+                $( "#showImg" ).attr('src',"<%- product['img_path3'] %>");
+                $( "#smallImg1" ).css('border','');
+                $( "#smallImg2" ).css('border','');
+                $( "#smallImg3" ).css('border','2px solid black');
+            } );
+            $("#increaseBtn").click(function(){
+                let num = parseInt($("#numOfClothes").val()) + 1;
+                $("#numOfClothes").val(num>10 ? 10 :num)  ;
+            });
+            $("#decreaseBtn").click(function(){
+                let num = parseInt($("#numOfClothes").val()) - 1;
+                $("#numOfClothes").val( num<0 ? 0 :num)  ;
+            });
+            $("#cartBtn").on('click',function(e){
+             
+                let pid = $(this).data('id');
+                let img = $(this).data('imgpath');
+                let pname = $(this).data('name');
+                let price = $(this).data('price');
+                let cnt =  $("#numOfClothes").val();
+                let size = $("#sizeSelect").val();
+               
+                $.ajax({
+                    url: '/cart/add',
+                    method: 'POST',
+                    data: { pid : pid,size:size,cnt:cnt,img:img,pname:pname,price:price },
+                }).done(function(response){
+                    $("#cartCnt1").text(response.cartCnt);
+                    $("#cartCnt2").text(response.cartCnt);
+                    if(response.cartCnt<=1){
+                        $("#shopingcart1").html(response.newOder);
+                        $("#shopingcart2").html(response.newOder);
+                    }else{
+                        $("#shopingcart1").append(response.newOder);
+                        $("#shopingcart2").append(response.newOder);
+                    }
+                    $("#pricesum1").html('Total: $'+response.sum);
+                    $("#pricesum2").html('Total: $'+response.sum);
+                });
+            })
+        });
+    </script>
+    

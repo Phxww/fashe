@@ -1,0 +1,24 @@
+<nav aria-label="Page navigation example mt-5">
+    <ul class="pagination  justify-content-center">
+        <li class="page-item <% if( !page.hasPre){%> disabled  <% } %> ">
+            <a class="page-link" href="<%- paginationUrl%>?page=<%- page.currentPage-1 %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <% 
+        for(let i = 1 ;i < page.pageTotal+1 ; i++) {%>
+        <li class="page-item <% if( i == page.currentPage){%> active  <% } %> ">
+            <a class="page-link" href="<%- paginationUrl%>?page=<%- i %>">
+                <%- i %>
+            </a>
+        </li>
+        <% }%>
+        <li class="page-item <% if( !page.hasNext){%> disabled  <% } %> ">
+            <a class="page-link" href="<%- paginationUrl%>?page=<%- page.currentPage+1 %>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>

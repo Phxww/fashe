@@ -1,0 +1,120 @@
+/* body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}  */
+
+
+.box-shadow{
+  box-shadow:0 3px 5px rgba(0, 0, 0, .16);
+}
+
+.cart-badge{
+  position: absolute;
+  top:0;
+  left: 15px;
+bottom: 0;
+}
+
+.btn-rounded{
+  border-radius: 50px;
+}
+
+.bg-cover{
+  background-size: cover;
+  background-position: center center;
+}
+
+.dropdown-menu-right{
+  right: 0;
+  left: auto;
+}
+
+/* range-slider */
+
+/*  add style to current page by body ID and Nav ID
+----------------------------------------  */
+#range-slider {max-width: 80%; margin: 0 auto; padding-top: 50px; }
+#slider-range { background-color: rgb(235, 235, 235); height:5px; }
+
+.ui-slider-horizontal .ui-slider-range { background-color: darkgray; }
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-active, .ui-widget-content .ui-state-active, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus { 
+background: #fff!important;
+border: 1px solid #cccccc!important;
+}
+
+.ui-slider .ui-slider-handle {
+box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);
+border-radius: 50%;
+height:20px;
+width:20px;
+}
+
+#amount { 
+font-size: 1em; 
+font-weight: 300;
+/* line-height: 1.6875em; */
+line-height: 1.6875em;
+/* color:#6798BD;  */
+text-align:center;
+width:100%;
+/* margin-top: 20px; */
+}
+
+
+li {
+  list-style-type: none;
+}
+
+.checkbox-color-filter {
+  display: none;
+}
+
+.checkbox-color-filter:checked+.color-filter {
+  box-shadow: 0 0 0 2px #000;
+  -moz-box-shadow: 0 0 0 2px #000;
+  -webkit-box-shadow: 0 0 0 2px #000;
+  -o-box-shadow: 0 0 0 2px #000;
+  -ms-box-shadow: 0 0 0 2px #000;
+}
+
+.color-filter {
+  display: block;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.color-filter1 {
+  background-color: #00bbec;
+}
+.color-filter2 {
+  background-color: #2c6ed5;
+}
+.color-filter3 {
+  background-color: #ffa037;
+}
+.color-filter4 {
+  background-color: #ff5337;
+}
+.color-filter5 {
+  background-color: #a88c77;
+}
+.color-filter6 {
+  background-color: #393939;
+}
+.color-filter7 {
+  background-color:#ccc;
+}
+
+.pagination-radius{
+  border-radius: 50%;
+}
+
+
+

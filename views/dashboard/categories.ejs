@@ -1,0 +1,44 @@
+<% extend('../layouts/dashboard-layout') %>
+<div class="main container-fluid my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>名稱</th>
+            <th width="30"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="align-middle">心得</td>
+            <td class="align-middle">
+              <form method="POST">
+                <button type="submit" class="btn btn-outline-danger btn-sm">
+                  刪除
+                </button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form method="POST">
+        <table class="table">
+          <tr>
+            <td class="align-middle">新增</td>
+            <td>
+              <label for="name">分類名稱</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="請輸入分類名稱"
+              />
+            </td>
+          </tr>
+        </table>
+
+        <div class="text-right">
+          <button type="submit" class="btn btn-primary">新增分類</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

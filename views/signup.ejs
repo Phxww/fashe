@@ -1,0 +1,28 @@
+<% extend('./layouts/layout') %>
+
+<div class="main container my-4">
+    <% if(message.length >0){%>
+        <div class="alert alert-danger" role="alert">     
+            <%- message %>
+        </div>
+    <% }%>
+    
+    <h1 class="text-center">註冊帳號</h1>
+    <form action="/auth/signup" method="POST">
+        <div class="form-group">
+            <label for="nickname">暱稱</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Enter nickname"> 
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

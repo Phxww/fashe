@@ -1,0 +1,39 @@
+<% extend('./layouts/layout') %>
+<%
+if(userInfo === undefined){
+    var userInfo ='';
+}
+if(message === undefined){
+    var message ='';
+}
+%>
+<div class="main container my-4">
+    <% if(message.length >0){%>
+        <div class="alert alert-info" role="alert">     
+            <%- message %>
+        </div>
+    <% }%>
+    
+    <h1 class="text-center">使用者資訊</h1>
+    <form action="/auth/myaccount/<%-userInfo.user_id %>" method="POST">
+        <div class="form-group">
+            <label for="nickname">暱稱</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" value="<%- userInfo.nickname %>" placeholder="Enter nickname"> 
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="<%- userInfo.email %>" aria-describedby="emailHelp" placeholder="Enter email" readonly>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="address">地址</label>
+            <input type="text" class="form-control" id="address" name="address" value="<%- userInfo.address %>" placeholder="Enter address" > 
+        </div>
+        <div class="form-group">
+            <label for="phone">聯絡電話</label>
+            <input type="number" class="form-control" id="phone" name="phone" value="<%- userInfo.phone %>" placeholder="Enter phone" > 
+        </div>
+        
+        <button type="submit" class="btn btn-primary">更新個人資訊</button>
+    </form>
+</div>

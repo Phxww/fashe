@@ -1,0 +1,125 @@
+<% extend('./layouts/layout') %>
+<!-- jumbotron -->
+<section>
+        <div class="jumbotron jumbotron-fluid bg-cover" style="background-image: url(./images/heading-pages-02.jpg)">
+            <div class="container text-center text-white">
+                <h1 class="display-4"><strong>WOMEN</strong> </h1>
+                <p class="lead">New Arrivals Women Collection 2018</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <ul class="list-group ">
+                        <h4><strong>Categories</strong></h4>
+                        <li class="list-group-item border-0 pl-0 text-muted pb-0">All</li>
+                        <li class="list-group-item border-0 pl-0 text-muted pb-0">Women</li>
+                        <li class="list-group-item border-0 pl-0 text-muted pb-0">Men</li>
+                        <li class="list-group-item border-0 pl-0 text-muted pb-0">Kids</li>
+                        <li class="list-group-item border-0 pl-0 text-muted pb-0">Accesories</li>
+                    </ul>
+                    <div class="py-3 border-bottom ">
+                        <h4> <strong>Filters</strong></h2>
+                    </div>
+                    <div class="py-3 border-bottom">
+                        <p>
+                                Price
+                        </p>
+                        <div id="range-slider py-3">
+                            <div id="slider-range"></div>
+                        </div> 
+                        <div class="d-inline-flex  align-items-baseline mt-2">
+                            <a href="#" class=" mt-3 btn bg-dark text-light btn-rounded px-3 py-1 "><small>FILTER</small> </a>
+                            <input class="ml-auto" type="text" id="amount" readonly style="border:0;">
+                        </div>
+                       
+                    </div>
+                    <div class="py-3 ">
+                        <p> Color</p>
+                        <ul class="d-flex pl-0">
+                            <li class="mr-2">
+                                <input class="checkbox-color-filter" id="color-filter1" type="checkbox" name="color-filter1">
+                                <label class="color-filter color-filter1" for="color-filter1"></label>
+                            </li>
+                            <li class="mr-2">
+                                 <input class="checkbox-color-filter" id="color-filter2" type="checkbox" name="color-filter1">
+                                <label class="color-filter color-filter2" for="color-filter2"></label>
+                            </li>
+                            <li class="mr-2">
+                                 <input class="checkbox-color-filter" id="color-filter3" type="checkbox" name="color-filter1">
+                                <label class="color-filter color-filter3" for="color-filter3"></label>
+                            </li>
+                            <li class="mr-2">
+                                 <input class="checkbox-color-filter" id="color-filter4" type="checkbox" name="color-filter1">
+                                <label class="color-filter color-filter4" for="color-filter4"></label>
+                            </li>
+                            <li class="mr-2">
+                                 <input class="checkbox-color-filter" id="color-filter5" type="checkbox" name="color-filter1">
+                                <label class="color-filter color-filter5" for="color-filter5"></label>
+                            </li>
+                            <li class="mr-2">
+                                 <input class="checkbox-color-filter" id="color-filter6" type="checkbox" name="color-filter1">
+                                <label class="color-filter color-filter6" for="color-filter6"></label>
+                            </li>
+                            <li class="mr-2">
+                                 <input class="checkbox-color-filter" id="color-filter7" type="checkbox" name="color-filter1">
+                                <label class="color-filter color-filter7" for="color-filter7"></label>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                    <div class="py-3">
+                         <input type="text" class="form-control" placeholder="Search Products..." aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+
+                <div class="col-md-9 col-sm-6">
+                    
+                        <div class="row">
+                            <div class="row-3 mr-2">
+                                <select class="custom-select ">
+                                    <option class="text-muted" selected>Defaults</option>
+                                    <option class="text-muted" value="Ppoularity">Ppoularity</option>
+                                    <option class="text-muted" value="Price:low to height">Price:low to height</option>
+                                    <option class="text-muted" value="Price:height to low">Price:height to low</option>
+                                </select>
+                            </div>
+                            <div class="row-3">
+                                <select class="custom-select ">
+                                    <option selected>Price</option>
+                                    <option value="1">$0.00-$50.00</option>
+                                    <option value="1">$50.00-$100.00</option>
+                                    <option value="1">$100.00-$150.00</option>
+                                    <option value="1">$150.00-$200.00</option>
+                                    <option value="1">$200.00+</option>
+                                </select>
+                            </div>
+                            <div class="row-3 ml-auto ">
+                                <small class="text-muted">Showing 1–12 of 16 results</small>
+                            </div>
+                        </div>
+                        <div class="row my-5">
+                            <% for( item in product){%>
+                             <div class="col-lg-4 col-md-6  col-12">
+                                <div class="card border-0 " >
+                                    <a  class="nav-link" href="/product-detail/<%-product[item].product_id %>">
+                                        <img class="card-img-top" src="<%- product[item].img_path %>" alt="Card image cap">
+                                        <div class="card-footer bg-white px-0 text-secondary">
+                                            <p class="card-text mb-1"><%- product[item].product_name %></p>
+                                            <p class="card-text">$ <%- product[item].price%></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <%}%>
+                        </div>
+                        
+                        <%- include('./partials/pagination') %>    
+                </div>
+            </div>
+        </div>
+    </section>

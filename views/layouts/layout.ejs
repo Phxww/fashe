@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="../../public/stylesheets/style.css">
+    <title>FASHE</title>
+
+
+</head>
+<body>
+
+<%
+
+  if(userInfo.nickname === undefined){
+    var nickname ='' ;
+  }else{
+    var nickname =  userInfo.nickname;
+  }
+
+  if(sum === undefined){
+    var sum = 0;
+  }
+  
+%>
+
+
+
+<!-- Top-bar -->
+    <div class="container-fluid">
+        <div class="d-none d-lg-block">
+            <div class="row bg-light text-secondary py-2 ">
+                <div class="col-4 ">
+                    <i class="fa fa-facebook ml-3" aria-hidden="true"></i>
+                    <i class="fa fa-instagram ml-3" aria-hidden="true"></i>
+                    <i class="fa-pinterest-p ml-3" aria-hidden="true"></i>
+                    <i class="fa fa-snapchat-ghost ml-3" aria-hidden="true"></i>
+                    <i class="fa fa-youtube-play ml-3" aria-hidden="true"></i>
+                </div>
+                <div class="col-4 text-sm-center ">Free shipping for standard order over $100</div>
+                <div class="col-4 text-right ">
+                    <span class="mr-3">
+                        <% if(nickname.length != 0){ %>
+                            <%- nickname %>
+                        <%}else{%>
+                            <a href="/auth/login">登入</a>
+                        <%}%>
+                    </span> 
+                    <% if(nickname.length != 0){ %>
+                    <span class="mr-3">
+                        <a href="/auth/logout">登出</a>
+                    </span> 
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top box-shadow">
+            <div class="container-fluid ">
+                <a class="navbar-brand" href="/"><img src="../images/icons/logo.png" alt=""> </a>
+                <div class="ml-auto d-lg-none d-inline-flex" >
+                    <a href="/auth/myaccount" class="mr-3 "><img src="../images/icons/icon-header-01.png" alt=""></a>
+                    <span class="mr-3">|</span>
+                    <div class="dropdown ">
+                        <a href="#" class="mr-3 dropdown-toggle" data-toggle="dropdown" style="position:relative;" >
+                            <img src="../images/icons/icon-header-02.png" alt="" > 
+                            <span class="badge badge-pill badge-dark cart-badge" style="z-index: 1" id="cartCnt2" name="cartCnt" ><%- cartCnt%></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" style="min-width: 300px;">
+                            <div class="px-4 py-3">
+                                <div id="shopingcart2">
+                                    <% if(cartCnt > 0){
+                                        for( item in cartlist){
+                                        %>
+                                    <div class="row mt-2">
+                                        <div class="col-4 bg-cover" style="background-image: url('<%- cartlist[item].img%>');"></div>
+                                        <div class="col-8">
+                                            <p><%- cartlist[item].pname%> </p>
+                                            <p class="small mb-1"> <%- cartlist[item].size%> x <%- cartlist[item].cnt%></p> 
+                                        </div>
+                                    </div>    
+                                    <%}}else{ %>
+                                        <div class=" text-center my-3 text-secondary">
+                                            購物車還是空的喔！
+                                        </div>
+                                        <% } %>
+                                </div>
+                                <div class="text-right my-2" id="pricesum1">
+                                        Total: $ <%- sum%>   
+                                </div>
+                                <div class="d-flex justify-content-around">
+                                    <a href="/cart" class=" mt-2 btn bg-dark text-light btn-rounded  ">VIEW CART</a>
+                                    <a href="#" class=" mt-2 btn bg-dark text-light btn-rounded  ">CHECK OUT</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                
+                <button class="navbar-toggler ml-3" type="button" data-toggle="collapse" data-target="#navbarHeader " aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse d-lg-flex justify-content-center" id="navbarHeader">
+                    <ul class="navbar-nav mt-2 mt-lg-0 ">
+                        <li class="nav-item py-2  d-lg-none">
+                            <span class="">  Free shipping for standard order over $100 </span>
+                        </li>
+                        <li class="nav-item py-2  d-lg-none">
+                            <span class="mr-3">
+                                <% if(nickname.length != 0){ %>
+                                    <%- nickname %>
+                                <%}else{%>
+                                    <a href="/auth/login">登入</a>
+                                <%}%>
+                            </span>
+                            <% if(nickname.length != 0){ %>
+                            <span class="mr-3">
+                                <a href="/auth/logout">登出</a>
+                            </span> 
+                            <%}%>
+                        </li>
+                        <li class="nav-item py-2  d-lg-none">
+                            <i class="fa fa-facebook " aria-hidden="true"></i>
+                            <i class="fa fa-instagram ml-3" aria-hidden="true"></i>
+                            <i class="fa-pinterest-p ml-3" aria-hidden="true"></i>
+                            <i class="fa fa-snapchat-ghost ml-3" aria-hidden="true"></i>
+                            <i class="fa fa-youtube-play ml-3" aria-hidden="true"></i>
+                        </li>
+
+                        <li class="nav-item active mr-3 ">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item mr-3 ">
+                            <a class="nav-link " href="/shop">Shop</a>
+                        </li>
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="#">Sale</a>
+                        </li>
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <li class="nav-item mr-3">
+                            <a class="nav-link" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ml-auto d-none d-lg-inline-flex " >
+                    <a href="/auth/myaccount" class="mr-3 "><img src="../images/icons/icon-header-01.png" alt=""></a>
+                    <span class="mr-3">|</span>
+                    <div class="dropdown ">
+                        <a href="#" class="mr-3 dropdown-toggle" data-toggle="dropdown" style="position:relative;" >
+                            <img src="../images/icons/icon-header-02.png" alt="" > 
+                            <span class="badge badge-pill badge-dark cart-badge" style="z-index: 1" id="cartCnt1" name="cartCnt" ><%- cartCnt %></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" style="min-width: 300px;">
+                            <div class="px-4 py-3">                            
+                                <div id="shopingcart1">
+                                    <% if(cartCnt > 0){
+                                        for( item in cartlist){
+                                        %>
+                                    <div class="row mt-2">
+                                        <div class="col-4 bg-cover" style="background-image: url('<%- cartlist[item].img%>');"></div>
+                                        <div class="col-8">
+                                            <p><%- cartlist[item].pname%> </p>
+                                            <p class="small mb-1"> <%- cartlist[item].size%> x <%- cartlist[item].cnt%></p> 
+                                        </div>
+                                    </div>    
+                                    <%}}else{ %>
+                                        <div class=" text-center my-3 text-secondary">
+                                            購物車還是空的喔！
+                                        </div>
+                                     <% } %>
+                                </div>
+                                
+                                <div class="text-right my-2" id="pricesum2">
+                                    Total: $ <%- sum%>   
+                                </div>
+                                <div class="d-flex justify-content-around">
+                                    <a href="/cart" class=" mt-2 btn bg-dark text-light btn-rounded  ">VIEW CART</a>
+                                    <a href="#" class=" mt-2 btn bg-dark text-light btn-rounded  ">CHECK OUT</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </nav>
+
+        <%- content %>
+
+        <!-- footer   -->
+        <footer class="py-5" style="background-color: #f5f5f5 ;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <div>
+                            <strong>
+                                GET IN TOUCH
+                            </strong>
+                        </div>
+                        <div class="my-3 text-muted">
+                            <small>
+                                Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+                            </small>
+                        </div>
+                        <div class="text-muted">
+                            <i class="fa fa-facebook " aria-hidden="true"></i>
+                            <i class="fa fa-instagram ml-3" aria-hidden="true"></i>
+                            <i class="fa-pinterest-p ml-3" aria-hidden="true"></i>
+                            <i class="fa fa-snapchat-ghost ml-3" aria-hidden="true"></i>
+                            <i class="fa fa-youtube-play ml-3" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>
+                                    CATEGORIES
+                                </strong>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                            </div>
+                            
+                            <div class="col-4">
+                                <strong>
+                                    LINKS
+                                </strong>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                            </div>
+                            <div class="col-4">
+                                <strong>
+                                    HELP
+                                </strong>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                                <p><small class="text-muted">Men</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <strong>
+                                NEWSLETTER
+                            </strong>
+                            <div class="my-3 border-bottom border-danger">
+                            <input class="border-0" type="text" name="" id="" style="background-color:transparent;" placeholder="email@example.com">
+                            </div>
+                            <div class="mt-5">
+                                    <a href="#" class="btn bg-dark text-light px-5 btn-rounded ">SUBSCRIBE</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="w-100 text-center mt-5">
+                <img src="../images/icons/visa.png" alt="">
+                <img src="../images/icons/paypal.png" alt="">
+                <img src="../images/icons/mastercard.png" alt="">
+                <img src="../images/icons/express.png" alt="">
+                <img src="../images/icons/discover.png" alt="">
+            </div>
+            <div class="w-100 text-center mt-3">
+                <small class="text-muted">
+                    Copyright © 2017 Colorlib. All rights reserved.
+                </small>
+            </div>
+        </footer>
+
+
+
+    </body>
+</html>

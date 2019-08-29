@@ -1,0 +1,92 @@
+<% extend('./layouts/layout') %>
+<!-- jumbotron -->
+if(sum === undefined){
+    var sum = 0;
+ }
+ %>
+<section>
+        <div class="jumbotron jumbotron-fluid bg-cover" style="background-image: url(./images/heading-pages-02.jpg)">
+            <div class="container text-center text-white">
+                <h1 class="display-4"><strong>YOUR SHOPPING CART</strong> </h1>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="my-5">
+        <div class="container ">
+            <div class="row">
+                <div class="col-12 col-md text-center alert alert-success alert-rounded ">3.訂單完成</div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 table-responsive">
+
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">商品名稱</th>
+                            <th scope="col">尺寸</th>
+                            <th scope="col">數量</th>
+                            <th scope="col">價格</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% if(cartCnt > 0){
+                            for( item in cartlist){
+                        %>
+                            <tr>
+                                <th scope="row" class="text-center"><img width="100px" class="img-thumbnail" src="<%- cartlist[item].img%>" alt=""></th>
+                                <td><%- cartlist[item].pname%></td>
+                                <td><%- cartlist[item].size%></td>
+                                <td><%- cartlist[item].cnt%></td>
+                                <td>$ <%- cartlist[item].price%></td>
+                            </tr>
+                        <%}}%>
+                            <tr class="text-right">
+                                <td colspan="4">
+                                    <strong>合計</strong>
+                                </td>
+                                <td class="text-right">
+                                    $<%- sum%>
+                                </td>
+                            </tr>    
+                        </tbody>
+                    </table> 
+                         
+                </div>
+               
+            </div>
+            <div class="row mt-3">
+                <div class="col-2"></div>
+                <div class="col-8 text-center bg-light text-dark py-3">訂購者資訊</div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row mt-3">
+                    <div class="col-2"></div>
+                    <table class="table col-8">
+                        <tbody>
+                            <tr>
+                                <th scope="row">姓名：</th>
+                                <td><%- userConfirm.userName %></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">地址：</th>
+                                <td><%- userConfirm.userAddress %></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email：</th>
+                                <td><%- userConfirm.userEmail %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-2"></div>
+            </div>
+
+            <div class="row">
+                <form action="/shop" method="GET" class=" col-12 ">
+                    <button type="submit" class=" col-12 col-md btn btn-outline-info">繼續購物</button>
+                </form>
+            </div>
+        </div>
+    </section>

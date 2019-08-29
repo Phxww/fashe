@@ -1,0 +1,133 @@
+<% extend('../layouts/dashboard-layout') %>
+
+<%
+if(message === undefined){
+  let message ='';
+}
+
+%>
+<div class="main container my-4">
+    <div class="row justify-content-center">
+        <% if(message.length > 0){ %>
+            <div class="alert alert-info col-12" role="alert">     
+                <%- message %>
+          </div>
+          <% }%>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="align-middle text-center" scope="col">修改商品</th>
+                    <th class="align-middle text-center" scope="col">商品影像</th>
+                    <th class="align-middle" scope="col">商品名稱</th>
+                    <th class="align-middle" style="width:100px;"scope="col">剩餘數量</th>
+                    <th class="align-middle text-right" scope="col">商品價格</th>
+                    <th class="align-middle text-center" scope="col">刪除商品</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <% for( item in product){%>
+                    <tr>
+                        <td class="align-middle text-center " >
+                            <a href="/dashboard/product/edit/<%- product[item].product_id%> " class="btn btn-outline-primary" > 修改商品 </a>
+                        </td>
+                        <td class="align-middle text-center">
+                            <a href="#" class="text-muted" data-toggle="modal" data-target="#removeModal"
+                                data-title="刪除 金牌西裝 1 件">
+                                <img class="img-thumbnail " src="<%- product[item].img_path%>"
+                                        alt="" style="width: 100px">
+                            </a>
+                        </td>
+                        <td class="align-middle"><%- product[item].product_name%></td>
+                        <td class="align-middle"><%- product[item].xl_cnt + product[item].l_cnt + product[item].m_cnt + product[item].s_cnt%></td>
+                        <td class="align-middle text-right"><%- product[item].price%></td>
+                        <td class="align-middle text-center " >
+                            <button class="btn btn-outline-danger " data-target="#removeModal" data-toggle="modal"  data-pid="<%- product[item].product_id%>" data-pname="<%- product[item].product_name%>"> 刪除 </button> 
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            <tfoot class="font-weight-bold text-right">
+                <tr>
+                    <td colspan="5">
+                        運費
+                    </td>
+                    <td>
+                        $60
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        合計
+                    </td>
+                    <td>
+                        $1060
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <%- include('../partials/pagination') %>
+    <!-- <nav aria-label="Page navigation example mt-5">
+        <ul class="pagination  justify-content-center">
+            <li class="page-item <% if( !page.hasPre){%> disabled  <% } %> ">
+                <a class="page-link" href="/dashboard/productAdmin?page=<%- page.currentPage-1 %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <% 
+            for(let i = 1 ;i < page.pageTotal+1 ; i++) {%>
+            <li class="page-item <% if( i == page.currentPage){%> active  <% } %> ">
+                <a class="page-link" href="/dashboard/productAdmin?page=<%- i %>">
+                    <%- i %>
+                </a>
+            </li>
+            <% }%>
+            <li class="page-item <% if( !page.hasNext){%> disabled  <% } %> ">
+                <a class="page-link" href="/dashboard/productAdmin?page=<%- page.currentPage-1 %>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav> -->
+</div>
+
+<!-- Modal -->
+<form action="/dashboard/product/delete/" name="removeform" id="removeform" method="POST">
+    <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="removeModalLabel">確認是否刪除商品</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">否</button>
+                    <button type="submit" class="btn btn-outline-danger" id="removebtn" data-pid="yes" >是</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    <script>
+        $('#removeModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            var recipient = button.data('pname') 
+            // $('#removebtn').data("pid","22")
+            $('#removebtn').attr("data-pid",button.data('pid'))
+            // $('#removeform').attr("data-pid",button.data('pid'))
+
+            $('#removeform').attr("action",$('#removeform').attr("action")+button.data('pid'))
+            var modal = $(this)
+            // modal.find('.modal-title').text('確定要刪除 ' + recipient)
+            modal.find('.modal-body ').text('確定要刪除 ' + recipient +' ?')
+            console.log('button.data(pid):'+button.data('pid'));
+        })
+
+    </script>

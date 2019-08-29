@@ -1,0 +1,148 @@
+<% extend('../layouts/dashboard-layout') %>
+
+<%
+if(message === undefined){
+  let message ='';
+}
+
+if(product === undefined){
+  var product = {};
+}
+%>
+
+<div class="main container-fluid my-4">
+    <% if(message.length > 0){ %>
+      <div class="alert alert-info" role="alert">     
+          <%- message %>
+    </div>
+    <% }%>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+        <form 
+        <% if(product.product_id){%>
+          action="/dashboard/product/update/<%= product.product_id%>"
+        <% }else{%>
+          action="/dashboard/product/create"
+        <% }%>  
+        method="POST" >
+
+
+      <!-- <form action="/dashboard/product/create" method="POST"> -->
+        <div class="form-group">
+          <label for="productName">商品名稱*</label>
+          <input
+            type="text"
+            class="form-control"
+            name="productName"
+            id="productName"
+            placeholder="商品名稱..."
+            value="<%- product.product_name %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="productDetail">商品介紹</label>
+          <textarea class="form-control" id="productDetail"  name="productDetail"  rows="3"><%- product.product_description %></textarea>
+        </div>
+        <div class="form-group">
+          <label for="price">價格*</label>
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            name="price"
+            placeholder="$100"
+            value="<%- product.price %>"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="categories">分類*</label>
+          <select class="form-control" id="categories" name="categories">
+            <% for(item in categories){ %>
+              <option value="<%- categories[item].categories_id %>" 
+                <% if( product.categories_id === categories[item].categories_id){  %>
+                 selected="selected" 
+                 <% } %> 
+                 > 
+                 <%- categories[item].categories_name %></option>
+            <%}%>
+          </select>
+        </div>
+
+        <div class="form-row mb-2">
+          <label for="xlCount">各尺寸數量*</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">XL</span>
+            </div>
+            <input
+              type="number"
+              class="form-control"
+              id="xlCount"
+              name="xlCount"
+              placeholder="10"
+              value="<%- product.xl_cnt %>"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-row mb-2">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">L</span>
+            </div>
+            <input
+              type="number"
+              class="form-control"
+              id="lCount"
+              name="lCount"
+              placeholder="10"
+              value="<%- product.l_cnt %>"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-row mb-2">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">M</span>
+            </div>
+            <input type="number" class="form-control" id="mCount" name="mCount" placeholder="10"  value="<%- product.m_cnt %>" required />
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">S</span>
+            </div>
+            <input type="number" class="form-control" id="sCount" name="sCount" placeholder="10" value="<%- product.s_cnt %>" required />
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+           
+          <label for="imgPath">選擇圖檔*</label>
+          <% if(product.img_path  ){ %>
+            <img class="img-thumbnail d-block" src="<%- product.img_path%>" alt="" style="width: 150px">
+          <% } %>
+          <!-- <div class="custom-file "> 
+            <input type="file" class="custom-file-input" id="imgPath" name="imgPath" required />
+            <label class="custom-file-label" for="imgPath"
+              >選擇圖檔...</label>
+          </div> -->
+          <input type="text" class="form-control" id="imgPath" name="imgPath" placeholder="imgPath..." value="<%- product.img_path %>" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary my-3 col-12">
+          <% if(product.product_id){%>
+            更新商品
+          <% }else{%>
+            新增商品
+          <% }%> 
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
