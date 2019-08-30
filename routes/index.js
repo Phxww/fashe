@@ -219,4 +219,64 @@ router.get('/product-detail/:p_id', function(req, res) {
 
 });
 
+router.get('/userorder', function(req, res) {
+  
+  if(!req.session.login){
+    res.render('userorder');
+  }else{
+    let sessionUserInfo = req.session.userInfo;
+    let user_id = sessionUserInfo.user_id;
+    const knex = require('knex')(options);
+    knex.from('order').select("user_id","total","order_time","order_id")
+    .where('user_id', '=', user_id)
+    .then(function(rows){
+      rows.forEach(element => {
+        element.order_time = moment(element.order_time).format('YYYY/MM/DD HH:mm:ss');
+      })
+      console.log('/userorder',rows);
+      res.render('userorder',{orderList:rows});
+    })
+    .catch((err) => { 
+      console.log('/userorder : in_error');
+      console.log( err); throw err })
+    .finally(() => {
+        knex.destroy();
+    });
+
+  }
+}); 
+
+router.post('/userorder', function(req, res) {
+  let order_id = req.body.oid;
+  let detailHtmlStr ='' ;
+  const knex = require('knex')(options);
+ 
+  knex({a:'orderinfo',b:'product'})
+    .whereRaw("a.product_id = b.product_id AND a.order_id = :value",{ value: order_id})
+    .select('a.order_id','a.product_id','a.size','a.quantity','b.product_name','b.img_path','b.price')
+    .then(function(rows){
+      rows.forEach((element)=>{
+        detailHtmlStr += 
+        `<tr>
+              <td class="text-center">
+                  <img width="100px" class="img" src="${element.img_path}" alt="">
+              </td>
+              <td>${element.product_name}</td>
+              <td>${element.size}</td>
+              <td>${element.quantity}</td>
+              <td class="text-right">${element.price}</td>
+         </tr>`
+      });
+      res.send(detailHtmlStr);
+      res.end();
+    })
+    .catch((err) => { 
+      console.log('/userorder : in_error');
+      console.log( err); throw err })
+    .finally(() => {
+        knex.destroy();
+    });
+ 
+}); 
+
 module.exports = router;

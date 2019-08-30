@@ -3,6 +3,18 @@ const router = express.Router();
 const options = require('../connection/db_options');
 const converPagination = require('../modules/converPagination');
 
+router.use(function(req, res, next) {
+  let userInfo = req.session.userInfo === undefined ? {} : req.session.userInfo;
+  let login = req.session.login === undefined ? false : req.session.login;
+  res.locals.login = login;
+  if(!login){
+    res.render('login', {message: '請先登入管理者帳號'});
+  }else if(userInfo.email != process.env.ADMIN_ACCOUNT){
+    res.render('login', {message: '權限不足！請登入管理者帳號'});
+  }
+  next();
+});
+
 router.get('/categories', function(req, res, next) {
     res.render('dashboard/categories', { title: 'Express' });
 });

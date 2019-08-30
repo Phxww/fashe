@@ -23,6 +23,7 @@ router.get('/login', function(req, res ) {
 });
 
 router.post('/login', function(req, res)  {
+    req.session.userInfo ={};
     let email = req.body.email;
     let password = req.body.password;
     const knex = require('knex')(options);
@@ -30,16 +31,10 @@ router.post('/login', function(req, res)  {
     knex.from('users').select("user_id","nickname","email","passwd","address","phone").where('email', '=', email)
     .then((rows) => {
         let row = rows[0];
-        console.log('/login/rows:',rows);
-        console.log('/login/rows.length:',rows.length);
-        console.log('/login/rows:',row['email'] === email);
-        console.log('/login/rows:',row['passwd']=== password);
-        console.log('/login/rows/email:',row['email']);
-        console.log('/login/rows/passwd:',row['passwd']);
         
         if(rows.length===0){
             req.session.login = false;
-            req.flash('message', '請確認帳號後，重新登入！');
+            req.flash('message', '帳號有誤！請確認帳號後，重新登入！');
             res.redirect('/auth/login');
         }else if (row['email'] === email && row['passwd']=== password){ 
             req.session.userInfo = {
@@ -126,8 +121,22 @@ router.post('/signup', function(req, res)  {
         { nickname: nickname,email:email, passwd: password }
     ];
     const knex = require('knex')(options);
-    knex('users').insert(userInfo,'user_id')
+
+        knex.from('users').count('*')
+        .where('email', '=', email)
+        .then((rows) => {
+            if(rows[0].count==0){
+                return knex('users').insert(userInfo,'user_id')
+            }
+            else{
+                return false
+            }
+        })    
         .then((result) => {
+            if(!result){
+                req.flash('message', ' Email 已註冊過！歡迎登入！');
+                res.redirect('login');
+            }
              req.flash('message', '註冊成功！歡迎登入！');
              res.redirect('login');
             })

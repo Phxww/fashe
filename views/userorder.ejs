@@ -1,0 +1,84 @@
+<% extend('./layouts/layout') %>
+<!-- jumbotron -->
+<%
+
+if(sum === undefined){
+   var sum = 0;
+}
+%>
+    <section>
+        <div class="jumbotron jumbotron-fluid bg-cover" style="background-image: url(./images/heading-pages-02.jpg)">
+            <div class="container text-center text-white">
+                <h1 class="display-4"><strong>YOUR ORDER</strong> </h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="my-5">
+        <div class="container">
+            <% if(!login){%>
+            <div>
+                <div class="col-12 text-center alert alert-warning">請先登入！</div>
+            </div>
+            <% }else{%>
+
+            <div class="row mt-3">
+                <div class="col-12 ">
+                    <% for( list in orderList){%>    
+                        <div class="card">
+                            <div class="card-header" id="heading<%- orderList[list].order_id%>">
+                                <h5 class="mb-0">
+                                <button id="detailBtn" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%- orderList[list].order_id%>" aria-expanded="true" aria-controls="collapseOne" data-oid ="<%- orderList[list].order_id%>">
+                                    價錢：<%- orderList[list].total %> - 訂單時間：<%- orderList[list].order_time %>   
+                                </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="collapse<%- orderList[list].order_id%>" class="collapse" aria-labelledby="heading<%- orderList[list].order_id%>" data-parent="#accordion">
+                                <div class="card-body table-responsive text-nowrap">
+                                    <table class="table ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col">商品名稱</th>
+                                                <th scope="col">尺寸</th>
+                                                <th scope="col">數量</th>
+                                                <th scope="col" class="text-right">單價</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody<%- orderList[list].order_id%>">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                          </div>
+                    <% }%>
+                </div>
+            </div>
+            <%}%> 
+        </div>
+    </section>
+
+    <script>
+        $( document ).ready(function() {
+            let readydata = [];
+            
+            $(".card #detailBtn").on('click',function(e){
+                let oid = $(this).data('oid');
+                let flag = readydata.some((value)=>{
+                    return value == oid ? true :false;
+                })
+                if(!flag){
+                    readydata.push(oid);
+                    $.ajax({
+                        url: '/userorder',
+                        method: 'POST',
+                        data: { oid : oid },
+                    }).done(function(response){
+                        $("#tbody"+oid).append(response);
+                    });
+                }
+            });
+        });
+    </script>
