@@ -106,7 +106,9 @@ router.post('/product/update/:p_id', function(req, res ){
       l_cnt:parseInt(req.body.xlCount),
       m_cnt:parseInt(req.body.mCount),
       s_cnt:parseInt(req.body.sCount),
-      img_path:req.body.imgPath
+      img_path:req.body.imgPath,
+      img_path2:req.body.imgPath2,
+      img_path3:req.body.imgPath3
     };
 
   const knex = require('knex')(options); 

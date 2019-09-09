@@ -44,13 +44,16 @@ router.get('/cart', function(req, res) {
     sum += sessionCart[item].price * sessionCart[item].cnt;
   }
   req.session.sum = sum;
-  res.render('cart', { sum:sum });
+  res.render('cart', { sum:JSON.stringify(sum),cartData:JSON.stringify(sessionCart)  });
 });
 
 router.post('/cart/delete/:pid/:size', function(req, res) {
   let pid = req.params.pid;
   let size = req.params.size;
   let sessionCart = req.session.cart;
+  console.log('delete_pid',pid);
+  console.log('delete_size',size);
+  // console.log('sessionCart_str',sessionCart);
   const index = sessionCart.findIndex(x => x.pid === pid && x.size === size);
 
   if (index !== undefined) sessionCart.splice(index, 1);
@@ -60,7 +63,9 @@ router.post('/cart/delete/:pid/:size', function(req, res) {
     sum += sessionCart[item].price * sessionCart[item].cnt;
   }
   req.session.sum = sum;
-  res.redirect('/cart');
+  res.send({sum:sum});
+  res.end();
+  // res.redirect('/cart');
   // res.render('cart',{sum:sum});
 });
 

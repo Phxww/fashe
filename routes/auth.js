@@ -136,9 +136,10 @@ router.post('/signup', function(req, res)  {
             if(!result){
                 req.flash('message', ' Email 已註冊過！歡迎登入！');
                 res.redirect('login');
-            }
+            }else{
              req.flash('message', '註冊成功！歡迎登入！');
              res.redirect('login');
+            }
             })
         .catch((err) => {
             req.flash('message', '註冊失敗！請聯絡管理員！');

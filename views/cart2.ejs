@@ -6,8 +6,6 @@ if(sum === undefined){
    var sum = 0;
 }
 %>
-
-
 <section>
         <div class="jumbotron jumbotron-fluid bg-cover" style="background-image: url(./images/heading-pages-02.jpg)">
             <div class="container text-center text-white">
@@ -36,8 +34,8 @@ if(sum === undefined){
                             </div>
                         
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                <div class="card-body table-responsive text-nowrap" >
-                                        <table class="table" id="app">
+                                <div class="card-body table-responsive text-nowrap">
+                                        <table class="table ">
                                             <thead>
                                                 <tr>
                                                 <th scope="col">#</th>
@@ -48,37 +46,34 @@ if(sum === undefined){
                                                 <th scope="col" class="text-right">價格</th>
                                                 </tr>
                                             </thead>
-                                            <% 
-                                            if(cartCnt > 0){
+                                            <tbody>
+                                            <% if(cartCnt > 0){
+                                                for( item in cartlist){
                                             %>
-                                            <tbody >
-                                                <tr v-for="(item,index) in cartData" :key="index">
-                                                    <th scope="row" class="align-middle text-center">
-                                                            <!-- <form :action="'/cart/delete/'+(item.pid)+'/'+(item.size)" method="POST" class="text-center">
-                                                                <button type="submit" class="btn btn-danger" :data-pid="item.pid" :data-size="item.size" >
+                                                <tr>
+                                                    <th scope="row" class="align-middle">
+                                                            <form action="/cart/delete/<%- cartlist[item].pid%>/<%- cartlist[item].size%>" method="POST" class="text-center">
+                                                                <button type="submit" class="btn btn-danger" data-pid="<%- cartlist[item].pid%>" data-size="<%- cartlist[item].size%>" >
                                                                     <i class="fa fa-trash fa-lg"></i>
                                                                 </button>   
-                                                            </form> -->
-                                                            <button type="submit" class="btn btn-danger" :data-pid="item.pid" :data-size="item.size" :data-rid="index" @click="removeProduct(item.pid,item.size,index)">
-                                                                <i class="fa fa-trash fa-lg"></i>
-                                                            </button>   
-
+                                                                
+                                                            </form>
                                                     </th>
-                                                    <td class="align-middle text-center">
-                                                        <img width="100px" class="img" :src="item.img" alt="">
+                                                    <td>
+                                                        <img width="100px" class="img" src="<%- cartlist[item].img%>" alt="">
                                                     </td>
-                                                    <td class="align-middle text-center">{{item.pname}}</td> 
-                                                    <td class="align-middle text-center">{{item.size}}</td> 
-                                                    <td class="align-middle text-center">{{item.cnt}}</td>
-                                                    <td class="align-middle text-right">$ {{item.price}}</td>
+                                                    <td><%- cartlist[item].pname%></td>
+                                                    <td><%- cartlist[item].size%></td>
+                                                    <td><%- cartlist[item].cnt%></td>
+                                                    <td class="text-right">$ <%- cartlist[item].price%></td>
                                                 </tr>
-                                            <%}%> 
+                                            <%}}%> 
                                                 <tr class="text-right">
                                                     <td colspan="5">
                                                         <strong>合計</strong>
                                                     </td>
                                                     <td class="text-right">
-                                                        $ {{sum}}
+                                                        $<%- sum%>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -115,34 +110,9 @@ if(sum === undefined){
                         <input type="text" class="form-control" id="userAddress" name="userAddress" placeholder="請輸入收件地址..." value="<%- login  ?  userInfo.address : '' %>" readonly>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button id="btnSubmit" type="submit" class="btn btn-primary" <%if(cartCnt < 1 || !login){%> disabled <%}%> >前往確認訂單</button>
+                        <button type="submit" class="btn btn-primary" <%if(cartCnt < 1){%> disabled <%}%> >前往確認訂單</button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
-<script>
-        var vm = new Vue({
-            el: '#app',
-            data: {
-                cartData: JSON.parse('<%- cartData %>') ,
-                sum:  JSON.parse('<%- sum %>') 
-            },methods: {
-                removeProduct:function(pid,size,rowid){                  
-                    let urlStr = `/cart/delete/${pid}/${size}`;
-                    this.cartData.splice(rowid, 1);
-                    $.ajax({
-                        url: urlStr,
-                        method: 'POST',
-                    }).done(function(response){
-                        console.log('message:',response);
-                        console.log('message_sum:',response.sum);
-                        vm.sum = response.sum; 
-                        if(response.sum <=0){
-                            $('#btnSubmit').attr('disabled', 'disabled');
-                        }
-                    });
-                }
-            },
-        }) 
-    </script>
