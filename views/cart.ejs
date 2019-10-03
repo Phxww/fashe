@@ -125,8 +125,8 @@ if(sum === undefined){
         var vm = new Vue({
             el: '#app',
             data: {
-                cartData: JSON.parse('<%- cartData %>') ,
-                sum:  JSON.parse('<%- sum %>') 
+                cartData: [] ,
+                sum:0  
             },methods: {
                 removeProduct:function(pid,size,rowid){                  
                     let urlStr = `/cart/delete/${pid}/${size}`;
@@ -143,6 +143,9 @@ if(sum === undefined){
                         }
                     });
                 }
-            },
+            },created: function () {
+                this.sum = JSON.parse('<%- sum %>') ;
+                this.cartData = JSON.parse('<%- cartData %>') 
+            }
         }) 
     </script>

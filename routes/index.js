@@ -141,7 +141,11 @@ router.get('/shop', function(req, res) {
     }
   })
   .then((rows) => {
-    res.render('shop', { product:rows,page:pageInfo,paginationUrl:'/shop'});
+    console.log('rows',rows);
+    console.log('JSON.stringify:',JSON.stringify(rows));
+    console.log('JSON.parse:',JSON.parse(JSON.stringify(rows)));
+    // res.render('shop', { product:rows,page:pageInfo,paginationUrl:'/shop'});
+    res.render('shop', { product:JSON.stringify(rows),page:pageInfo,paginationUrl:'/shop'});
   })
   .catch((err) => { 
       console.log('/shop : in_error');
@@ -164,6 +168,8 @@ router.post('/cart/add', function(req, res) {
   let tmpSessCnt = 0;
   let tmpSum = 0;
   let psCK = false;//pid & size 是否同時都有
+
+  console.log('cart/add/_size:',size);
 
   if(req.session.cart === undefined || Object.keys(req.session.cart).length < 1 ){
     tmpSession = [];

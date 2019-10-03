@@ -267,32 +267,35 @@
                 $("#numOfClothes").val( num<0 ? 0 :num)  ;
             });
             $("#cartBtn").on('click',function(e){
-             
                 let pid = $(this).data('id');
                 let img = $(this).data('imgpath');
                 let pname = $(this).data('name');
                 let price = $(this).data('price');
                 let cnt =  $("#numOfClothes").val();
                 let size = $("#sizeSelect").val();
-               
-                $.ajax({
-                    url: '/cart/add',
-                    method: 'POST',
-                    data: { pid : pid,size:size,cnt:cnt,img:img,pname:pname,price:price },
-                }).done(function(response){
-                    $("#cartCnt1").text(response.cartCnt);
-                    $("#cartCnt2").text(response.cartCnt);
-                    if(response.cartCnt<=1){
-                        $("#shopingcart1").html(response.newOder);
-                        $("#shopingcart2").html(response.newOder);
-                    }else{
-                        $("#shopingcart1").append(response.newOder);
-                        $("#shopingcart2").append(response.newOder);
-                    }
-                    $("#pricesum1").html('Total: $'+response.sum);
-                    $("#pricesum2").html('Total: $'+response.sum);
-                });
-            })
+                if(size){
+                    $.ajax({
+                        url: '/cart/add',
+                        method: 'POST',
+                        data: { pid : pid,size:size,cnt:cnt,img:img,pname:pname,price:price },
+                    }).done(function(response){
+                        $("#cartCnt1").text(response.cartCnt);
+                        $("#cartCnt2").text(response.cartCnt);
+                        if(response.cartCnt<=1){
+                            $("#shopingcart1").html(response.newOder);
+                            $("#shopingcart2").html(response.newOder);
+                        }else{
+                            $("#shopingcart1").append(response.newOder);
+                            $("#shopingcart2").append(response.newOder);
+                        }
+                        $("#pricesum1").html('Total: $'+response.sum);
+                        $("#pricesum2").html('Total: $'+response.sum);
+                        $(".modal-body").text('已成功加入購物車！');
+                    });
+                  }else{
+                      $(".modal-body").text('請先選擇尺寸');
+                  }
+            });
         });
     </script>
     
