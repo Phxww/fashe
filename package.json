@@ -15,7 +15,7 @@
     "express-ejs-extend": "0.0.1",
     "express-session": "^1.16.2",
     "http-errors": "~1.6.3",
-    "knex": "^0.19.2",
+    "knex": "^0.19.5",
     "moment": "^2.24.0",
     "morgan": "~1.9.1",
     "nodemon": "^1.19.1",
